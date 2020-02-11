@@ -2,6 +2,7 @@ package com.example.geoquiz;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
     private Button mTrueButton;
     private Button mFalseButton;
     private Button mNextButton;
+    private Button mCheatButton;
+
     private TextView mQuestionTextView;
 
     private Question[] mQuestionBank = new Question[] {
@@ -55,8 +58,16 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onCreate(Bundle) called");
         setContentView(R.layout.activity_main);
 
+        mCheatButton = (Button) findViewById(R.id.cheat_button);
+        mCheatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(MainActivity.this, CheatActivity.class);
+                startActivity(i);
+            }
+        });
+
         if (savedInstanceState != null) {
-            //Log.d(TAG, savedInstanceState.getString(KEY_INDEX));
             mCurrentIndex = savedInstanceState.getInt(KEY_INDEX);
         }
 
@@ -96,7 +107,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         Log.i(TAG, "onSaveInstanceState");
-        //outState.putString(KEY_INDEX, "Tyler Brubaker");
         outState.putInt(KEY_INDEX, mCurrentIndex);
     }
 
